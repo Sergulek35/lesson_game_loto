@@ -1,13 +1,14 @@
 import random
-from lotto_features import separator, Keds, Card
+from lotto_features import separator, Kegs, Person
 
-barrels = Keds()
-players = {}
+barrels = Kegs()
+players = Person()
 corrent_player = None
 
 print('    ИГРА НАЧИНАЕТСЯ! ')
 while True:
-    print(f'Всего игроков: {len(players)}')
+    print(separator('-'))
+    print(f'Всего игроков: {len(players.person)}')
     print('1. Человек')
     print('2. Компьютер')
     print('3. Играть')
@@ -16,38 +17,26 @@ while True:
     choise = input('Выберите пункт меню: ')
     if choise == '1':
         name = input('Введите имя игрока: ')
-        if name in players:
-            print(separator(','))
-            print('Такое имя уже есть')
-        else:
-            new_player = Card()
-            players[name] = new_player
-            print(separator(','))
-            print('Игрок добавлен')
+        players.add_player(name)
+        print(players.text)
     elif choise == '2':
         name = input('Введите имя компьютера: ') + '(cru)'
-        if name in players:
-            print(separator(','))
-            print('Такое имя уже есть')
-        else:
-            new_player = Card()
-            players[name] = new_player
-            print(separator(','))
-            print('Компьютер добавлен')
+        players.add_player(name)
+        print(players.text)
 
     elif choise == '3':
-        if players:
+        if players.person:
             break
         else:
-            print(' Чтобы играть, нужно добавить игрока')
+            print(' Чтобы играть, нужно добавить игрока!')
 
     else:
         print('Введите 1,2 или 3')
 
 while players:
 
-    for name in players:
-        corrent_player = players[name]
+    for name in players.person:
+        corrent_player = players.person[name]
 
         print(f'   ---------- {name} ----------')
 
@@ -63,8 +52,8 @@ while players:
     print(separator('.'))
     print(f'Выпал бочонок : {number} (Осталось - {len(barrels.kegs)})')
 
-    for name in players.copy():
-        corrent_player = players.copy()[name]
+    for name in players.person.copy():
+        corrent_player = players.person.copy()[name]
         if not '(cru)' in name:
             print(separator('.'))
             cross_out = input(f'Игрок {name} зачеркнуть цифру? (+/-): ')
@@ -76,17 +65,17 @@ while players:
                 else:
                     print(separator('"'))
                     print(f'Цифры нет на карте\nИгрок {name} проиграл!')
-                    del players[name]
+                    del players.person[name]
 
             elif cross_out == '-':
                 if number in corrent_player.card:
                     print(separator('"'))
                     print(f'Цифра есть на карте\nИгрок {name} проиграл!')
-                    del players[name]
+                    del players.person[name]
 
             else:
                 print(f'Не правильный ввод\nИгрок {name} проиграл!')
-                del players[name]
+                del players.person[name]
         else:
             if number in corrent_player.card:
                 corrent_player.card_out(number)
