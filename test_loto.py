@@ -17,6 +17,10 @@ class TestKegs(unittest.TestCase):
         self.assertNotIn(91, self.barrels.kegs)
         self.assertNotIn(0, self.barrels.kegs)
 
+    def test_str(self):
+        self.assertEqual(len(self.barrels.kegs), 90)
+
+
     def test_kegs_minus(self):
         self.barrels.kegs_minus(50)
         self.assertEqual(len(self.barrels.kegs), 89)
@@ -29,7 +33,7 @@ class TestCard(unittest.TestCase):
 
     def test_init(self):
         self.assertEqual(self.new_player.once, 0)
-        self.assertEqual(len(self.new_player.card), 15)
+        self.assertEqual(len(self.new_player.card), 18)
         self.assertIsInstance(self.new_player.card, list)
 
     def test_card_out(self):
@@ -39,6 +43,9 @@ class TestCard(unittest.TestCase):
         self.assertNotIn(77, self.new_player.card)
         self.assertEqual(self.new_player.once, 1)
 
+    def test_eq_(self):
+        self.assertTrue(self.new_player.card != self.new_player.once)
+
 
 class TestPerson(unittest.TestCase):
     def setUp(self):
@@ -47,6 +54,10 @@ class TestPerson(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.players.person, {})
         self.assertIsInstance(self.players.person, dict)
+
+    def test_str(self):
+        self.assertEqual( len(self.players.person), 0)
+
 
     def test_add_player(self):
         self.players.add_player('игрок')

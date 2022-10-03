@@ -8,7 +8,7 @@ corrent_player = None
 print('    ИГРА НАЧИНАЕТСЯ! ')
 while True:
     print(separator('-'))
-    print(f'Всего игроков: {len(players.person)}')
+    print(players)
     print('1. Человек')
     print('2. Компьютер')
     print('3. Играть')
@@ -33,24 +33,21 @@ while True:
     else:
         print('Введите 1,2 или 3')
 
-while players:
+while players.person:
 
     for name in players.person:
         corrent_player = players.person[name]
 
         print(f'   ---------- {name} ----------')
-
-        print('', *corrent_player.card[:5], sep='      ')
-        print(*corrent_player.card[5:10], sep='    ')
-        print('', *corrent_player.card[10:], sep='     ')
-
+        print(*corrent_player.card, sep='      ')
         print(separator('-'))
 
     # input('Нажмите "Enter", чтобы достать бочёнок из мешка:  ') -- можно добавить,когда играют компьютеры
     number = random.choice(barrels.kegs)
     barrels.kegs_minus(number)
     print(separator('.'))
-    print(f'Выпал бочонок : {number} (Осталось - {len(barrels.kegs)})')
+
+    print(f'Выпал бочонок : {number} {barrels}')
 
     for name in players.person.copy():
         corrent_player = players.person.copy()[name]
